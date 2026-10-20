@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c28">
+  <title>Dominó de Holguras · Optimización I</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="tiles.css">
+  <script src="bank.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header><a class="brand" href="./" aria-label="Dominó de Holguras, inicio"><span class="logo" aria-hidden="true">▰</span> OPTIMIZACIÓN I <span class="gym">/ GYM 04</span></a><button id="sound" class="icon" aria-pressed="false" aria-label="Activar sonido">Sonido: off</button></header>
+    <main>
+      <section class="heading"><p class="eyebrow">CONECTA · RAZONA · ENCAJA</p><h1>Dominó de <span>Holguras.</span></h1><p class="subtitle">Conecta las condiciones correctas.</p></section>
+      <section id="intro" class="intro panel">
+        <div class="demo" aria-hidden="true"><span>Recurso<br>sobrante</span><b>●<br>●</b><span>Precio sombra<br>= 0</span></div>
+        <h2>Las matemáticas encajan.</h2><p>Construye una cadena de 6 conexiones. Elige una ficha y tócala para encajar su mitad izquierda con la condición del tablero.</p>
+        <div class="intro-details"><span>01 · Reconoce</span><span>02 · Simboliza</span><span>03 · Interpreta</span></div>
+        <p class="small">Cada reto supone un par primal-dual <strong>factible y óptimo</strong>. Equivocarte no rompe tu cadena. Tiempo orientativo: 60–120 s, sin límite obligatorio.</p>
+        <button id="start" class="primary">Comenzar partida <span aria-hidden="true">↗</span></button>
+      </section>
+      <section id="game" hidden aria-label="Tablero de dominó">
+        <div class="stats"><div><span>CONEXIONES</span><strong id="score">0 / 6</strong></div><div><span>RACHA</span><strong id="streak">0</strong></div><div><span>TIEMPO</span><strong id="clock">0:00</strong></div></div>
+        <div class="progress" role="progressbar" aria-label="Progreso de conexiones" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><i id="progress"></i></div>
+        <div class="stage-line"><span id="phase" class="eyebrow"></span><span id="round"></span></div>
+        <section class="board panel" aria-label="Cadena de conexiones"><div id="history" class="history" aria-label="Conexiones anteriores"></div><p class="board-label">EXTREMO ACTIVO <span aria-hidden="true">↓</span></p><div id="context" class="context"></div><div class="active-tile"><span class="dots" aria-hidden="true">●<br>●</span><strong id="prompt"></strong><span class="port" aria-hidden="true">+</span></div><div class="socket" aria-hidden="true">Conecta aquí</div></section>
+        <div class="choice-label"><h2>Tu siguiente ficha</h2><span>TOCA PARA ENCAJAR</span></div><div id="choices" class="choices"></div>
+        <p id="feedback" class="feedback" role="status" aria-live="polite"></p><button id="next" class="primary" hidden>Siguiente conexión →</button>
+      </section>
+      <section id="results" class="panel results" hidden aria-labelledby="result-title"><p class="eyebrow">CADENA COMPLETA</p><h2 id="result-title">Todo conectado.</h2><p id="summary"></p><div class="review"><h3>Cuatro relaciones que encajan</h3><p><b>sᵢ &gt; 0 → yᵢ = 0</b><span>Sobra recurso → precio sombra cero.</span></p><p><b>yᵢ &gt; 0 → sᵢ = 0</b><span>Precio sombra positivo → restricción primal activa.</span></p><p><b>xⱼ &gt; 0 → tⱼ = 0</b><span>Variable primal positiva → restricción dual activa.</span></p><p><b>tⱼ &gt; 0 → xⱼ = 0</b><span>Holgura dual positiva → variable primal cero.</span></p></div><p class="caution">Cero no implica positividad: sᵢ = 0 no obliga a yᵢ &gt; 0, ni tⱼ = 0 obliga a xⱼ &gt; 0.</p><button id="replay" class="primary">Jugar con otra cadena ↻</button></section>
+      <details class="theory"><summary>La regla detrás de las fichas</summary><div><p>Primal: max cᵀx, Ax ≤ b, x ≥ 0.<br>Dual: min bᵀy, Aᵀy ≥ c, y ≥ 0.</p><p>sᵢ = bᵢ − (Ax)ᵢ · tⱼ = (Aᵀy)ⱼ − cⱼ.<br>En un par óptimo factible: <strong>sᵢyᵢ = 0 y xⱼtⱼ = 0.</strong></p><p>Activa significa holgura cero. Los índices siempre se corresponden. El precio sombra se refiere a la variable dual de esa solución; no se afirma un cambio de beneficio para perturbaciones arbitrarias.</p></div></details>
+    </main><footer>DOMINÓ DE HOLGURAS <span>Aprender es conectar.</span></footer>
+  </div>
+</body>
+</html>
